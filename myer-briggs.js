@@ -24,24 +24,18 @@ const questions = [
 ];
 
 
-const personalityTypes = {
-  "ISTJ": {"title": "The Traditionalist", "percentage": "13.7%", "description": ["Dutiful", "Practical", "Logical", "Methodical"], "site": "http://www.personalitypage.com/html/ISTJ.html"},
-  "ISFJ": {"title": "The Protector", "percentage": "12.7%", "description": ["Dutiful", "Practical", "Supportive", "Meticulous"], "site": "http://www.personalitypage.com/html/ISFJ.html"},
-  "INFJ": {"title": "The Guide", "percentage": "1.7%", "description": ["Devoted", "Innovative", "Idealistic", "Compassionate"], "site": "http://www.personalitypage.com/html/INFJ.html"},
-  "INTJ": {"title": "The Visionary", "percentage": "1.4%", "description": ["Independent", "Innovative", "Analytical", "Purposeful"], "site": "http://www.personalitypage.com/html/INTJ.html"},
-  "ISTP": {"title": "The Problem-Solver", "percentage": "6.4%", "description": ["Expedient", "Practical", "Objective", "Adaptable"], "site": "http://www.personalitypage.com/html/ISTP.html"},
-  "ISFP": {"title": "The Harmonizer", "percentage": "6.1%", "description": ["Tolerant", "Realistic", "Harmonious", "Adaptable"], "site": "http://www.personalitypage.com/html/ISFP.html"},
-  "INFP": {"title": "The Humanist", "percentage": "3.2%", "description": ["Insightful", "Innovative", "Idealistic", "Adaptable"], "site": "http://www.personalitypage.com/html/INFP.html"},
-  "INTP": {"title": "The Conceptualizer", "percentage": "2.4%", "description": ["Questioning", "Innovative", "Objective", "Abstract"], "site": "http://www.personalitypage.com/html/INTP.html"},
-  "ESTP": {"title": "The Activist", "percentage": "5.8%", "description": ["Energetic", "Practical", "Pragmatic", "Spontaneous"], "site": "http://www.personalitypage.com/html/ESTP.html"},
-  "ESFP": {"title": "The Fun-Lover", "percentage": "8.7%", "description": ["Spontaneous", "Practical", "Friendly", "Harmonious"], "site": "http://www.personalitypage.com/html/ESFP.html"},
-  "ENFP": {"title": "The Enthusiast", "percentage": "6.3%", "description": ["Optimistic", "Innovative", "Compassionate", "Versatile"], "site": "http://www.personalitypage.com/html/ENFP.html"},
-  "ENTP": {"title": "The Entrepreneur", "percentage": "2.8%", "description": ["Risk-Taking", "Innovative", "Outgoing", "Adaptable"], "site": "http://www.personalitypage.com/html/ENTP.html"},
-  "ESTJ": {"title": "The Coordinator", "percentage": "10.4%", "description": ["Organized", "Practical", "Logical", "Outgoing"], "site": "http://www.personalitypage.com/html/ESTJ.html"},
-  "ESFJ": {"title": "The Supporter", "percentage": "12.6%", "description": ["Friendly", "Practical", "Loyal", "Organized"], "site": "http://www.personalitypage.com/html/ESFJ.html"},
-  "ENFJ": {"title": "The Developer", "percentage": "2.8%", "description": ["Friendly", "Innovative", "Supportive", "Idealistic"], "site": "http://www.personalitypage.com/html/ENFJ.html"},
-  "ENTJ": {"title": "The Reformer", "percentage": "2.9%", "description": ["Determined", "Innovative", "Strategic", "Outgoing"], "site": "http://www.personalitypage.com/html/ENTJ.html"}
-};
+
+    function placeCheckmark(num, position){
+        return (num == 1 && position == 1) || (num == 0 && position == 2) ? '\u2713' : "";
+    }
+
+    function padText(text, length = 3, start = true){
+      str = "" + text;
+
+      if(start) return str.padStart(length);
+
+      return str.padEnd(length);
+    }
 
 
 const personality = [["E", "I"], ["S", "N"], ["T", "F"], ["J", "P"]];
@@ -60,7 +54,7 @@ const prompt = (query) => new Promise((resolve) => rl.question(query, resolve));
         let option = await prompt(`A. ${ques[0]} \nB. ${ques[1]}\n`)
         
         while(!['A', 'B'].includes(option.toUpperCase())){
-          console.error("Option can only be 'A' or 'B'")
+          console.error("%c Option can only be 'A' or 'B'", "color: #F00")
           option = await prompt("")
         }
 
@@ -69,7 +63,7 @@ const prompt = (query) => new Promise((resolve) => rl.question(query, resolve));
         }else{
           responses.push(0)
         }
-        console.log(`You selected: ${option}`)
+        console.log(`You selected: ${option.toUpperCase()}\n`)
         
     }
     rl.close()
@@ -82,7 +76,7 @@ const prompt = (query) => new Promise((resolve) => rl.question(query, resolve));
    
 //when done reading prompt process the responses and exit program 
 rl.on('close', () => {
-	console.log(responses)
+	
 
 	for(let i = 0; i < 4; i++){
         let total = 0;
@@ -100,11 +94,24 @@ rl.on('close', () => {
         }
     }
 
-    console.log(optionsCount)
-    console.log(personalityType)
-    console.log("Title: ", personalityTypes[personalityType].title)
-    console.log("Description: ", personalityTypes[personalityType].description.join(", "))
-    console.log("Site: ", personalityTypes[personalityType].site)
+
+
+    console.log("\nYour choice at a glance\n");
+        console.log(`|${padText(" ", 5)} |${padText("A")} | ${padText("B")}`.repeat(4));
+        console.log("-".repeat(74));
+
+        for (let i = 0; i < responses.length; i += 4) {
+            console.log(`|${padText(i+1, 5)} | ${padText(placeCheckmark(responses[i], 1))} | ${padText(placeCheckmark(responses[i], 2))} | ${padText(i+2)} | ${padText(placeCheckmark(responses[i+1], 1))} | ${padText(placeCheckmark(responses[i+1], 2))} | ${padText(i+3)} | ${padText(placeCheckmark(responses[i+2], 1))} | ${padText(placeCheckmark(responses[i+2], 2))} | ${padText(i+3)} | ${padText(placeCheckmark(responses[i+3], 1))} | ${padText(placeCheckmark(responses[i+3], 2))} |`);
+        }
+        console.log("-".repeat(74));
+        console.log(`|TOTAL | ${padText(optionsCount[0][0])} | ${padText(optionsCount[0][1])} | ${padText(" ")} | ${padText(optionsCount[1][0])} | ${padText(optionsCount[1][1])} | ${padText(" ")} | ${padText(optionsCount[2][0])} | ${padText(optionsCount[2][1])} | ${padText(" ")} | ${padText(optionsCount[3][0])} | ${padText(optionsCount[3][1])} | ${padText(" ")}`);
+        console.log("-".repeat(74));
+        console.log(`|${padText(" ", 5)} | ${padText("E")} | ${padText("I")} | ${padText(" ")} | ${padText("S")} | ${padText("N")} | ${padText(" ")} | ${padText("T")} | ${padText("F")} | ${padText(" ")} | ${padText("J")} | ${padText("P")} |`);
+
+
+        console.log("\nYour personality type is " + personalityType);
+        console.log(`To read more on your personality type, visit: https://www.truity.com/personality-type/${personalityType}`);
+        
     
 
 	process.exit(0)
