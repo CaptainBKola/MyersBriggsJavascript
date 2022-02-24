@@ -7,7 +7,7 @@ Some of the topics you will learn in this article are;
 
 * Working with Javascript array
 * Asynchronous programming in js
-* [Immediately Invoked Function Expression] (https://developer.mozilla.org/en-US/docs/Glossary/IIFE) 
+* [Immediately Invoked Function Expression](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) 
 * Input and output operation with readline module
 * String formatting 
 
