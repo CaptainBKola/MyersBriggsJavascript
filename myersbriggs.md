@@ -7,7 +7,7 @@ Some of the topics you will learn in this article are;
 
 * Working with Javascript array
 * Asynchronous programming in js
-* Immediately Invoked Function Expression [https://developer.mozilla.org/en-US/docs/Glossary/IIFE] 
+* [Immediately Invoked Function Expression] (https://developer.mozilla.org/en-US/docs/Glossary/IIFE) 
 * Input and output operation with readline module
 * String formatting 
 
@@ -299,5 +299,5 @@ return str.padEnd(length);
 ```
 
 ## Conclusion
-At the end of this article we succefully built an application that enables to know the type of personality we have using the test questions from Myers Briggs website. We learnt the usage of Javascript array, IIFE, asynchronous programming, I/O operation in javascript and lastly string formating. The link to this project can be found on my github[https://github.com/CaptainBKola/MyersBriggsJavascript]
+At the end of this article we succefully built an application that enables us to aggregate our personality identities using the test questions from Myers Briggs website. We learnt the usage of Javascript array, IIFE, asynchronous programming, I/O operation in javascript and lastly string formating. The link to this project can be found on my [github](https://github.com/CaptainBKola/MyersBriggsJavascript)
 Happy coding
